@@ -1,0 +1,16 @@
+# This file is managed by Puppet
+# Do not edit directly
+# Your changes will be overwritten
+##################################
+
+host = "<%= @proto %>://<%= @user %>:<%= @password %>@<%= @host %>:<%= @port %>"
+ColDir = "<%= @config_path %>"
+Freq = <%= @freq %>
+FullHost = <%= @full_host %>
+
+<% @processes.each do |k,v| -%>
+[[<%= k %>]]
+  Command = <%= v['command'] %>
+  Name = <%= v['name'] %>
+  Args = <%= v['args'] %>
+<% end -%>
