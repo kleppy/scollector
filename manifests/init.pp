@@ -64,19 +64,15 @@
 # Copyright 2016
 #
 class scollector (
-  $version    = '0.5.0',#undef,
-  $host       = 'foo.advisory.com',#undef,
-  $port       = '8090',#undef,
-  $user       = 'bar',#undef,
-  $password   = 'baz',#undef,
-  $freq       = '60',#undef,
-  $full_host  = true,#undef,
-  $proto      = 'https',#undef,
-  $processes  = { ruby => { name    => 'ruby_name',
-                            command => 'ruby_cmd',
-                            args    =>  'ruby_args',
-                          },
-                },#undef,
+  $version    = undef,
+  $host       = undef,
+  $port       = undef,
+  $user       = undef,
+  $password   = undef,
+  $freq       = undef,
+  $full_host  = undef,
+  $proto      = undef,
+  $processes  = undef,
 ) {
 
   validate_re($version, '^\d+\.\d+\.\d+$')
