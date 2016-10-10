@@ -94,16 +94,18 @@ class scollector (
 
   case downcase($::kernel) {
     'linux': {
-      $os           = 'linux'
-      $ext          = undef
-      $install_path = '/usr/local/scollector'
-      $config_path  = '/etc/scollector'
+      $os                 = 'linux'
+      $ext                = undef
+      $install_path       = '/usr/local/scollector'
+      $config_path        = '/etc/scollector'
+      $external_collector = '/etc/scollector/collectors'
     }
     'windows': {
-      $os           = 'windows'
-      $ext          = '.exe'
-      $install_path = 'C:/Program Files/scollector'
-      $config_path  = $install_path
+      $os                 = 'windows'
+      $ext                = '.exe'
+      $install_path       = 'C:/Program Files/scollector'
+      $config_path        = $install_path
+      $external_collector = 'C:/Program Files/scollector/collectors'
     }
     default: {
       fail("${::kernel} is not a supported kernel")

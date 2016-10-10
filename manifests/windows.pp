@@ -3,21 +3,26 @@
 #
 class scollector::windows {
 
-  file { 'install-dir':
-    ensure => directory,
-    path   => $::scollector::install_path,
+  file {
+    'install-dir':
+      ensure => directory,
+      path   => $::scollector::install_path;
+
+    'external-collectors':
+      ensure  => directory,
+      path    => "${::scollector::config_path}/${::scollector::external_collector}",
+      require => File['install-dir'];
+
+    'scollector-config':
+      ensure  => file,
+      path    => "${::scollector::config_path}/scollector.toml",
+      content => template('scollector/windows.toml.erb'),
+      notify  => Service['scollector'],
+      require => File['install-dir'];
   }
 
   pget { 'download-scollector':
     source => $::scollector::download_url,
     target => "${::scollector::install_path}/${::scollector::binary}",
-  }
-
-  file { 'scollector-config':
-    ensure  => file,
-    path    => "${::scollector::install_path}/scollector.toml",
-    content => template('scollector/windows.toml.erb'),
-    notify  => Service['scollector'],
-    require => File['install-dir'],
   }
 }
