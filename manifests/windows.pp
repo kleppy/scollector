@@ -8,7 +8,7 @@ class scollector::windows {
       ensure => directory,
       path   => $::scollector::install_path;
 
-    'external-collectors':
+    'collector-dir':
       ensure  => directory,
       path    => "${::scollector::config_path}/${::scollector::external_collector}",
       require => File['install-dir'];
