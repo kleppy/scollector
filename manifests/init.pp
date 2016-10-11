@@ -23,7 +23,8 @@
 #   The password for the user account used to connect.
 #
 # [*freq*]
-#   The frequency in which to send metrics.
+#   The frequency in which to send metrics in seconds.
+#   ie. 0 (constantly), 10, 30, 60, 300
 #
 # [*full_host*]
 #   Whether or not to truncate the FQDN to just the hostname.
@@ -112,6 +113,10 @@ class scollector (
     }
   }
 
+  $external_collector_freq = ['10',
+                              '30',
+                              '60',
+                              '300']
   $binary = "scollector-${os}-${real_arch}${ext}"
   $download_url = "https://github.com/bosun-monitor/bosun/releases/download/${version}/${binary}"
   $klass = downcase($::osfamily)

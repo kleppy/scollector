@@ -13,6 +13,11 @@ class scollector::windows {
       path    => "${::scollector::config_path}/${::scollector::external_collector}",
       require => File['install-dir'];
 
+    'collector-freq-dir':
+      ensure  => directory,
+      path    => "${::scollector::config_path}/${::scollector::external_collector}/${::external_collector_freq}",
+      require => File['collector-dir'];
+
     'scollector-config':
       ensure  => file,
       path    => "${::scollector::config_path}/scollector.toml",

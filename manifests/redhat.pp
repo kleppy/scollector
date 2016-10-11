@@ -52,6 +52,16 @@ class scollector::redhat {
       mode    => '0755',
       purge   => true,
       require => File['config-dir'];
+
+    'collector-freq-dir':
+      ensure  => directory,
+      path    => "${::scollector::config_path}/${::scollector::external_collector}/${::external_collector_freq}",
+      owner   => root,
+      group   => root,
+      mode    => '0755',
+      purge   => true,
+      require => File['collector-dir'];
+
     'scollector-config':
       ensure  => file,
       path    => "${::scollector::config_path}/scollector.toml",
