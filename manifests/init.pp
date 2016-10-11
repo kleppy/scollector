@@ -129,4 +129,5 @@ class scollector (
   }
 
   contain "::scollector::${klass}"
+  Scollector::Collector<| |>
 }
