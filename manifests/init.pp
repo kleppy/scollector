@@ -26,6 +26,11 @@
 #   The frequency in which to send metrics in seconds.
 #   ie. 0 (constantly), 10, 30, 60, 300
 #
+# [*freq_dir*]
+#   The names of the directories to create for external collectors.
+#   These names directly correspond to the frequency in which data
+#   is sent in seconds.
+#
 # [*full_host*]
 #   Whether or not to truncate the FQDN to just the hostname.
 #
@@ -71,21 +76,22 @@ class scollector (
   $user       = undef,
   $password   = undef,
   $freq       = undef,
+  $freq_dir   = undef
   $full_host  = undef,
   $proto      = undef,
   $processes  = undef,
 ) {
 
-  validate_re($version, '^\d+\.\d+\.\d+$')
+  validate_re($version, '^\d+\.\d+\.\d+$',
+              $port, '(^\d{4}$)',
+              $proto, ['^http$', '^https$'], 'Valid protocols are http or https')
   validate_integer($freq)
+  validate_array($freq_dir)
   validate_hash($processes)
   validate_bool($full_host)
-  validate_string($host)
-  validate_re($port, '(^\d{4}$)')
-  validate_string($user)
-  validate_string($password)
-  validate_re($proto, ['^http$', '^https$'], 'Valid protocols are http or https')
-  validate_hash($processes)
+  validate_string($host,
+                  $user,
+                  $password)
 
   if ('64' in $::architecture) {
     $real_arch   = 'amd64'
@@ -95,31 +101,28 @@ class scollector (
 
   case downcase($::kernel) {
     'linux': {
-      $os                 = 'linux'
-      $ext                = undef
-      $install_path       = '/usr/local/scollector'
-      $config_path        = '/etc/scollector'
-      $external_collector = '/etc/scollector/collectors'
+      $os            = 'linux'
+      $ext           = undef
+      $install_path  = '/usr/local/scollector'
+      $config_path   = '/etc/scollector'
+      $collector_dir = "${config_path}/collectors"
     }
     'windows': {
-      $os                 = 'windows'
-      $ext                = '.exe'
-      $install_path       = 'C:/Program Files/scollector'
-      $config_path        = $install_path
-      $external_collector = 'C:/Program Files/scollector/collectors'
+      $os            = 'windows'
+      $ext           = '.exe'
+      $install_path  = 'C:/Program Files/scollector'
+      $config_path   = $install_path
+      $collector_dir = "${install_path}/collectors"
     }
     default: {
       fail("${::kernel} is not a supported kernel")
     }
   }
 
-  $external_collector_freq = ['10',
-                              '30',
-                              '60',
-                              '300']
-  $binary = "scollector-${os}-${real_arch}${ext}"
-  $download_url = "https://github.com/bosun-monitor/bosun/releases/download/${version}/${binary}"
-  $klass = downcase($::osfamily)
+  $collector_freq_dir = "${collecotr_dir}/${freq_dir}"
+  $binary             = "scollector-${os}-${real_arch}${ext}"
+  $download_url       = "https://github.com/bosun-monitor/bosun/releases/download/${version}/${binary}"
+  $klass              = downcase($::osfamily)
 
   if !defined("::scollector::${klass}") {
     fail("no class for ${::osfamily}")

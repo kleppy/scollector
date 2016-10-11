@@ -46,7 +46,7 @@ class scollector::redhat {
 
     'collector-dir':
       ensure  => directory,
-      path    => "${::scollector::config_path}/${::scollector::external_collector}",
+      path    => "${::scollector::collector_dir}",
       owner   => root,
       group   => root,
       mode    => '0755',
@@ -55,7 +55,7 @@ class scollector::redhat {
 
     'collector-freq-dir':
       ensure  => directory,
-      path    => "${::scollector::config_path}/${::scollector::external_collector}/${::external_collector_freq}",
+      path    => "${::scollector::collector_freq_dir}",
       owner   => root,
       group   => root,
       mode    => '0755',

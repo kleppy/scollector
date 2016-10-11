@@ -10,12 +10,12 @@ class scollector::windows {
 
     'collector-dir':
       ensure  => directory,
-      path    => "${::scollector::config_path}/${::scollector::external_collector}",
+      path    => "${::scollector::collector_dir}",
       require => File['install-dir'];
 
     'collector-freq-dir':
       ensure  => directory,
-      path    => "${::scollector::config_path}/${::scollector::external_collector}/${::external_collector_freq}",
+      path    => "${::scollector::collector_freq_dir}",
       require => File['collector-dir'];
 
     'scollector-config':
