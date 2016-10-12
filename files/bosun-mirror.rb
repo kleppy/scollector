@@ -18,7 +18,7 @@ def which(cmd)
 end
 
 curl      = which('curl')
-bosun_dir = '/var/www/html/repos/latest/bosun'
+bosun_dir = '/var/www/html/repos/bosun'
 
 latest = Faraday.get 'https://api.github.com/repos/bosun-monitor/bosun/releases/latest'
 
