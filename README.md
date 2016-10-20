@@ -57,35 +57,34 @@ examples and code samples for doing things with your module.
 **Parameters**
 
 *Version*
-The version of Scollector to install on the node
+* The version of Scollector to install on the node
 
 *Host*
-The host to have Scollector send metrics to
+* The host to have Scollector send metrics to
 
 *Port*
-The port for Scollector to use to connect to the host
+* The port for Scollector to use to connect to the host
 
 *User*
-The user for Scollector to authenticate with
+* The user for Scollector to authenticate with
 
 *Password*
-The password for authentication
+* The password for authentication
 
 *Freq*
-The frequency in seconds to send metrics
+* The frequency in seconds to send metrics
 
 *Freq_Dir*
-The directory to deploy external collectors to in relation to how often they
-should be sending metrics
+* The directory to deploy external collectors to in relation to frequency
 
 *Full_Host*
-Whether or not to use the full hostname when sending metrics
+* Whether or not to use the full hostname when sending metrics
 
 *Proto*
-The protocol to connect to the host with
+* The protocol to connect to the host with
 
 *Processes*
-The processes Scollector should monitor
+* The processes Scollector should monitor
 
 ## Limitations
 
