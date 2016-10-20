@@ -7,3 +7,10 @@ Host = "<%= @proto %>://<%= @user %>:<%= @password %>@<%= @host %>:<%= @port %>"
 ColDir = "<%= @external_collector %>"
 Freq = <%= @freq %>
 FullHost = <%= @full_host %>
+
+<% @processes.each do |k,v| -%>
+  [[<%= k %>]]
+    Command = <%= v['command'] %>
+    Name = <%= v['name'] %>
+    Args = <%= v['args'] %>
+<% end -%>

@@ -14,38 +14,23 @@
 
 ## Description
 
-Start with a one- or two-sentence summary of what the module does and/or what
-problem it solves. This is your 30-second elevator pitch for your module.
-Consider including OS/Puppet version it works with.
-
-You can give more descriptive information in a second paragraph. This paragraph
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?" If your module has a range of functionality (installation, configuration,
-management, etc.), this is the time to mention it.
+This module will install and confgure the Scollector agent on both Windows and
+Linux hosts. It will manage external collectors as well however there is
+currently a dependency on the external collector being added to the module as a
+static file.
 
 ## Setup
 
-### What scollector affects **OPTIONAL**
+### What scollector affects
 
-If it's obvious what your module touches, you can skip this section. For
-example, folks can probably figure out that your mysql_instance module affects
-their MySQL instances.
+* Creates a directory structure to install and configure Scollector
+* Creates a Scollector service on Windows and places a startup script on Linux
 
-If there's more that they should know about, though, this is the place to mention:
+### Setup Requirements
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you might want to include an additional "Upgrading" section
-here.
+* [cyberious-pget >= 0.1.3](https://github.com/cyberious/puppet-pget)
+* [maestrodev-wget >= 1.7.3](https://github.com/maestrodev/puppet-wget)
+* [puppetlabs-stdlib >= 4.12.0](https://github.com/puppetlabs/puppetlabs-stdlib)
 
 ### Beginning with scollector
 
@@ -61,23 +46,57 @@ examples and code samples for doing things with your module.
 
 ## Reference
 
-Here, include a complete list of your module's classes, types, providers,
-facts, along with the parameters for each. Users refer to this section (thus
-the name "Reference") to find specific details; most users don't read it per
-se.
+**Classes**
+* [scollector](https://github.com/discreet/scollector/blob/master/manifests/init.pp)
+* [redhat](https://github.com/discreet/scollector/blob/master/manifests/redhat.pp)
+* [windows](https://github.com/discreet/scollector/blob/master/manifests/windows.pp)
+
+**Defines**
+* [collector](https://github.com/discreet/scollector/blob/master/manifests/collector.pp)
+
+**Parameters**
+
+*Version*
+The version of Scollector to install on the node
+
+*Host*
+The host to have Scollector send metrics to
+
+*Port*
+The port for Scollector to use to connect to the host
+
+*User*
+The user for Scollector to authenticate with
+
+*Password*
+The password for authentication
+
+*Freq*
+The frequency in seconds to send metrics
+
+*Freq_Dir*
+The directory to deploy external collectors to in relation to how often they
+should be sending metrics
+
+*Full_Host*
+Whether or not to use the full hostname when sending metrics
+
+*Proto*
+The protocol to connect to the host with
+
+*Processes*
+The processes Scollector should monitor
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc. If there
-are Known Issues, you might want to include them under their own heading here.
+* Only written for RHEL 6/7 and Windows 2008R2/2012R2
+* Only supports x86_64 and x64 bit architecture
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
+1. Fork the project
+2. Create your feature and fully test it
+3. Write your tests
+4. Squash your commits
+5. Submit a pull request to the upstream
 
-## Release Notes/Contributors/Etc. **Optional**
-
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You can also add any additional sections you feel
-are necessary or important to include here. Please use the `## ` header.

@@ -3,6 +3,8 @@
 #
 class scollector::windows {
 
+  $scollector_path = "${::scollector::install_path}/${::scollector::binary}"
+
   file {
     'install-dir':
       ensure => directory,
@@ -29,5 +31,20 @@ class scollector::windows {
   pget { 'download-scollector':
     source => $::scollector::download_url,
     target => "${::scollector::install_path}/${::scollector::binary}",
+    notify => Exec['register-service'],
+  }
+
+  exec { 'register-service':
+    path        => $scollector_path,
+    command     => 'scollector --winsvc install',
+    refreshonly => true,
+  }
+
+  service { 'scollector':
+    ensure     => running,
+    enable     => true,
+    hasstatus  => true,
+    hasrestart => true,
+    require    => Exec['register-service'],
   }
 }
