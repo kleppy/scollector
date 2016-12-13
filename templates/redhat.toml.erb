@@ -2,13 +2,18 @@
 # Do not edit directly
 # Your changes will be overwritten
 ##################################
-
+<% if @user.nil? and @password.nil? %>
+host = "<%= @proto %>://<%= @host %>:<%= @port %>"
+<% else -%>
 host = "<%= @proto %>://<%= @user %>:<%= @password %>@<%= @host %>:<%= @port %>"
+<% end -%>
+<% unless @external_collector.nil? %>
 ColDir = "<%= @external_collector %>"
+<% end -%>
 Freq = <%= @freq %>
 FullHost = <%= @full_host %>
 
-<% unless @processes.nil? or @processes.empty? %>
+<% unless @processes.nil? %>
 <% @processes.each do |k,v| -%>
 [[<%= k %>]]
   Command = <%= v['command'] %>
