@@ -1,7 +1,7 @@
 # Class: scollector::redhat
 # Installs and configures for RedHat specific Scollector
 #
-class scollector::redhat {
+class scollector::redhat inherits scollector {
 
   $init_file = $::operatingsystemmajrelease ? {
     /^6/ => 'scollector',
@@ -53,14 +53,14 @@ class scollector::redhat {
       purge   => true,
       require => File['config-dir'];
 
-    'collector-freq-dir':
-      ensure  => directory,
-      path    => "${::scollector::collector_freq_dir}",
-      owner   => root,
-      group   => root,
-      mode    => '0755',
-      purge   => true,
-      require => File['collector-dir'];
+    #'collector-freq-dir':
+    #  ensure  => directory,
+    #  path    => "${::scollector::collector_freq_dir}",
+    #  owner   => root,
+    #  group   => root,
+    #  mode    => '0755',
+    #  purge   => true,
+    #  require => File['collector-dir'];
 
     'scollector-config':
       ensure  => file,

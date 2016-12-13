@@ -119,7 +119,7 @@ class scollector (
     }
   }
 
-  $collector_freq_dir = "${collecotr_dir}/${freq_dir}"
+  #$collector_freq_dir = "${collecotr_dir}/${freq_dir}"
   $binary             = "scollector-${os}-${real_arch}${ext}"
   $download_url       = "https://github.com/bosun-monitor/bosun/releases/download/${version}/${binary}"
   $klass              = downcase($::osfamily)
@@ -129,5 +129,5 @@ class scollector (
   }
 
   contain "::scollector::${klass}"
-  Scollector::Collector<| |>
+  #Scollector::Collector<| |>
 }
