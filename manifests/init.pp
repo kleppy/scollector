@@ -128,6 +128,7 @@ class scollector (
     fail("no class for ${::osfamily}")
   }
 
+  notify { "Scollector Version: $::scollector_version": }
   contain "::scollector::${klass}"
   #Scollector::Collector<| |>
 }
