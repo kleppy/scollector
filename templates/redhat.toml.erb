@@ -2,15 +2,22 @@
 # Do not edit directly
 # Your changes will be overwritten
 ##################################
-
-host = "<%= @proto %>://<%= @user %>:<%= @password %>@<%= @host %>:<%= @port %>"
+<% if @user.nil? and @password.nil? %>
+Host = "<%= @proto %>://<%= @host %>:<%= @port %>"
+<% else -%>
+Host = "<%= @proto %>://<%= @user %>:<%= @password %>@<%= @host %>:<%= @port %>"
+<% end -%>
+<% unless @external_collector.nil? %>
 ColDir = "<%= @external_collector %>"
+<% end -%>
 Freq = <%= @freq %>
 FullHost = <%= @full_host %>
 
+<% unless @processes.nil? %>
 <% @processes.each do |k,v| -%>
-[[<%= k %>]]
-  Command = <%= v['command'] %>
-  Name = <%= v['name'] %>
-  Args = <%= v['args'] %>
+  [[<%= k %>]]
+    Command = <%= v['command'] %>
+    Name = <%= v['name'] %>
+    Args = <%= v['args'] %>
+<% end -%>
 <% end -%>

@@ -44,7 +44,7 @@
 # --------
 #
 #  class { 'scollector':
-#    versio    => '0.5.0',
+#    version   => '0.5.0',
 #    host      => 'metrics.advisory.com',
 #    port      => '8099',
 #    user      => 'foo',
@@ -76,15 +76,15 @@ class scollector (
   $user       = undef,
   $password   = undef,
   $freq       = undef,
-  $freq_dir   = undef
+  $freq_dir   = [],
   $full_host  = undef,
   $proto      = undef,
-  $processes  = undef,
+  $processes  = {},
 ) {
 
-  validate_re($version, '^\d+\.\d+\.\d+$',
-              $port, '(^\d{4}$)',
-              $proto, ['^http$', '^https$'], 'Valid protocols are http or https')
+  validate_re($version, '^\d+\.\d+\.\d+$')
+  validate_re($port, '(^\d{4}$)')
+  validate_re($proto, ['^http$', '^https$'], 'Valid protocols are http or https')
   validate_integer($freq)
   validate_array($freq_dir)
   validate_hash($processes)
@@ -119,7 +119,7 @@ class scollector (
     }
   }
 
-  $collector_freq_dir = "${collecotr_dir}/${freq_dir}"
+  #$collector_freq_dir = "${collecotr_dir}/${freq_dir}"
   $binary             = "scollector-${os}-${real_arch}${ext}"
   $download_url       = "https://github.com/bosun-monitor/bosun/releases/download/${version}/${binary}"
   $klass              = downcase($::osfamily)
@@ -128,6 +128,7 @@ class scollector (
     fail("no class for ${::osfamily}")
   }
 
+  notify { "Scollector Version: $::scollector_version": }
   contain "::scollector::${klass}"
-  Scollector::Collector<| |>
+  #Scollector::Collector<| |>
 }
