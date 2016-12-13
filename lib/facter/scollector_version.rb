@@ -4,8 +4,8 @@ Facter.add("scollector_version") do
   confine :osfamily => 'RedHat'
   setcode do
     if File.exists?("/usr/local/scollector")
-      if File.executable?("/usr/local/scollector/scollector-linux-amd64")
-        result = Facter::Util::Resolution.exe("/usr/local/scollector/scollector-linux-amd64 -version")
+      if File.executable?("/usr/local/scollector/scollector")
+        result = Facter::Util::Resolution.exe("/usr/local/scollector/scollector -version")
         if result
           version = result.sub(%r{^scollector\Wversion\W(\d+\.\d+\.\d+).*$},'\1')
           if version.empty? or version.nil?
