@@ -4,20 +4,20 @@ Facter.add("scollector_version") do
   confine :osfamily => 'RedHat'
   setcode do
     if File.exists?("/usr/local/scollector")
-      if File.executable?("/usr/local/scollector/scollector-linux-amd64")
-        result = Facter::Util::Resolution.exe("/usr/local/scollector/scollector-linux-amd64 -version")
+      if File.executable?("/usr/local/scollector/scollector")
+        result = Facter::Util::Resolution.exec("/usr/local/scollector/scollector -version")
         if result
-          version = result.sub(%r{^scollector\Wversion\W(\d+\.\d+\.\d+).*$},'\1')
+          version = result.sub(%r{.?scollector.version.([0-9a-zA-Z]+.*).+\(.*$},'\1')
           if version.empty? or version.nil?
             '0.unknown'
           else
             version
           end
-        else
+	else
           'Scollector Output Error'
         end
       else
-        'Scollector Executable Missing'
+	'Scollector Executable Missing'
       end
     else
       'Scollector Not Installed'
@@ -30,19 +30,19 @@ Facter.add("scollector_version") do
   setcode do
     if File.exists?("C:\\Program Files\\scollector")
       if File.executable?("C:\\Program Files\\scollector\\scollector-windows-amd64.exe")
-        result = Facter::Util::Resolution.exe("C:\\Program Files\\scollector\\scollector-windows-amd64.exe -version")
+        result = Facter::Util::Resolution.exec("C:\\Program Files\\scollector\\scollector-windows-amd64.exe -version")
         if result
-          version = result.sub(%r{^scollector\Wversion\W(\d+\.\d+\.\d+).*$},'\1')
+          version = result.sub(%r{.?scollector.version.([0-9a-zA-Z]+.*).+\(.*$},'\1')
           if version.empty? or version.nil?
             '0.unknown'
           else
             version
           end
-        else
+	else
           'Scollector Output Error'
         end
       else
-        'Scollector Executable Missing'
+	'Scollector Executable Missing'
       end
     else
       'Scollector Not Installed'
