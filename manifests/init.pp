@@ -76,7 +76,7 @@ class scollector (
   $user       = undef,
   $password   = undef,
   $freq       = undef,
-  $freq_dir   = undef
+  $freq_dir   = undef,
   $full_host  = undef,
   $proto      = undef,
   $processes  = undef,
