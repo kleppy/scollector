@@ -15,12 +15,12 @@ class scollector::windows {
       path    => "${::scollector::collector_dir}",
       require => File['install-dir'];
 
-    'collector-freq-dir':
-      ensure  => directory,
-      path    => "${::scollector::collector_freq_dir}",
-      require => File['collector-dir'];
+    #'collector-freq-dir':
+    #  ensure  => directory,
+    #  path    => "${::scollector::collector_freq_dir}",
+    #  require => File['collector-dir'];
 
-    'scollector-config':
+     'scollector-config':
       ensure  => file,
       path    => "${::scollector::config_path}/scollector.toml",
       content => template('scollector/windows.toml.erb'),
