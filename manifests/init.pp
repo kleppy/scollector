@@ -44,7 +44,7 @@
 # --------
 #
 #  class { 'scollector':
-#    versio    => '0.5.0',
+#    version   => '0.5.0',
 #    host      => 'metrics.advisory.com',
 #    port      => '8099',
 #    user      => 'foo',
