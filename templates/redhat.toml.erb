@@ -8,9 +8,11 @@ ColDir = "<%= @external_collector %>"
 Freq = <%= @freq %>
 FullHost = <%= @full_host %>
 
+<% unless @processes.nil? or @processes.empty? %>
 <% @processes.each do |k,v| -%>
 [[<%= k %>]]
   Command = <%= v['command'] %>
   Name = <%= v['name'] %>
   Args = <%= v['args'] %>
+<% end -%>
 <% end -%>

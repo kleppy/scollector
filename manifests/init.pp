@@ -76,15 +76,15 @@ class scollector (
   $user       = undef,
   $password   = undef,
   $freq       = undef,
-  $freq_dir   = undef,
+  $freq_dir   = [],
   $full_host  = undef,
   $proto      = undef,
-  $processes  = undef,
+  $processes  = {},
 ) {
 
-  validate_re($version, '^\d+\.\d+\.\d+$',
-              $port, '(^\d{4}$)',
-              $proto, ['^http$', '^https$'], 'Valid protocols are http or https')
+  validate_re($version, '^\d+\.\d+\.\d+$')
+  validate_re($port, '(^\d{4}$)')
+  validate_re($proto, ['^http$', '^https$'], 'Valid protocols are http or https')
   validate_integer($freq)
   validate_array($freq_dir)
   validate_hash($processes)
